@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        iframe {
+            margin-top: 20px;
+            width: 560px;
+            height: 315px;
+        }
+    </style>
+</head>
+<body>
+    <h2>YouTube Video Player</h2>
+    <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL">
+    <button onclick="loadVideo()">Play Video</button>
+    <br>
+    <iframe id="videoFrame" frameborder="0" allowfullscreen></iframe>
+
+    <script>
+        function extractVideoId(url) {
+            const regex = /(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([^&#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+        
+        function loadVideo() {
+            const url = document.getElementById("youtubeUrl").value;
+            const videoId = extractVideoId(url);
+            if (videoId) {
+                document.getElementById("videoFrame").src = `https://www.youtube.com/embed/${videoId}`;
+            } else {
+                alert("Invalid YouTube URL");
+            }
+        }
+    </script>
+</body>
+</html>
